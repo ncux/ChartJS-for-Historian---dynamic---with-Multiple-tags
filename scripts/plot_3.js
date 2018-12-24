@@ -42,31 +42,56 @@ let tagsArray = [];
 let valuesArray = [];
 let timeArray = [];
 
+let valuesArray2 = [];
+let timeArray2 = [];
+
+let valuesArray3 = [];
+let timeArray3 = [];
+
+let valuesArray4 = [];
+let timeArray4 = [];
+
+// array of tagSelector values
+let tagSelectorsValues = [];
+
 
 // chart parameters
 let data = {
     labels: timeArray,
-    datasets: [{
-        label: tagSelector.value,
-        data: valuesArray,
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-    }]
+    datasets: [
+        {
+            label: tagSelector.value,
+            fillColor: "#560620",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "#560620",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: valuesArray
+        },
+        {
+            label: tagSelector2.value,
+            fillColor: "#fff",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "#fff",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: valuesArray2
+        },
+        {
+            label: tagSelector3.value,
+            fillColor: "#000",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "#000",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: valuesArray3
+        },
+        {
+            label: tagSelector4.value,
+            fillColor: "#0000FF",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "#0000FF",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: valuesArray4
+        }
+    ]
 };
 
 
@@ -188,6 +213,10 @@ async function getValuesThenPlotChartAndTabulateData() {
 
     let historianData = await response.json();
     let timeStampsAndValues = historianData['Data'][0].Samples;
+    let timeStampsAndValues2 = historianData['Data'][1].Samples || [];
+    let timeStampsAndValues3 = historianData['Data'][2].Samples || [];
+    let timeStampsAndValues4 = historianData['Data'][3].Samples || [];
+
     console.log(timeStampsAndValues);
 
     // fill the chart arrays & plot the chart
@@ -238,93 +267,16 @@ async function getValuesThenPlotChartAndTabulateData_2() {
 }
 
 
-async function getValuesThenPlotChartAndTabulateData_3() {
-
-    let queryUrl = generateQueryUrl_3();
-    console.log(queryUrl);
-
-    const options = { headers: { 'Authorization': `Bearer ${ API.access_token }` } };
-    let response = await fetch(queryUrl, options);
-
-    let historianData = await response.json();
-    let timeStampsAndValues = historianData['Data'][0].Samples;
-    console.log(timeStampsAndValues);
-
-    // fill the chart arrays & plot the chart
-    timeStampsAndValues.forEach(value => {
-        timeArray.push(simplifyTime(value.TimeStamp));
-        valuesArray.push((parseInt(value.Value)).toFixed(0));   // removing decimal fraction
-        plotChart();
-    });
-
-    // tabulate the data
-    tableCaption.textContent = `Data from tag ${tagSelector.value}`;
-    timeStampsAndValues.forEach(dataItem => {
-        let row = document.createElement('tr');
-        row.innerHTML = `<td>${simplifyTime(dataItem.TimeStamp)}</td> <td>${(parseInt(dataItem.Value)).toFixed(0)}</td> <td>${dataItem.Quality}</td>`;
-        table.append(row);
-    });
-
-}
-
-
-async function getValuesThenPlotChartAndTabulateData_4() {
-
-    let queryUrl = generateQueryUrl_4();
-    console.log(queryUrl);
-
-    const options = { headers: { 'Authorization': `Bearer ${ API.access_token }` } };
-    let response = await fetch(queryUrl, options);
-
-    let historianData = await response.json();
-    let timeStampsAndValues = historianData['Data'][0].Samples;
-    console.log(timeStampsAndValues);
-
-    // fill the chart arrays & plot the chart
-    timeStampsAndValues.forEach(value => {
-        timeArray.push(simplifyTime(value.TimeStamp));
-        valuesArray.push((parseInt(value.Value)).toFixed(0));   // removing decimal fraction
-        plotChart();
-    });
-
-    // tabulate the data
-    tableCaption.textContent = `Data from tag ${tagSelector.value}`;
-    timeStampsAndValues.forEach(dataItem => {
-        let row = document.createElement('tr');
-        row.innerHTML = `<td>${simplifyTime(dataItem.TimeStamp)}</td> <td>${(parseInt(dataItem.Value)).toFixed(0)}</td> <td>${dataItem.Quality}</td>`;
-        table.append(row);
-    });
-
-}
-
 
 // grabs the form inputs and builds the API query URL
 function generateQueryUrl() {
     // change interval value to milliseconds
     const milliseconds = Math.ceil((parseInt(interval.value))*1000);
-    return `${API.dataUrl}/${tagSelector.value}/${startDate.value}T${startTime.value}/${endDate.value}T${endTime.value}/${calcMode.value}/${count.value}/${milliseconds}`;
+    tagSelectorsValues.push(`${tagSelector.value}%3B`, `${tagSelector2.value}%3B`, `${tagSelector3.value}%3B`, `${tagSelector4.value}`);
+    console.log(`${tagSelectorsValues.join('')}`);
+    return `${API.dataUrl}/${tagSelectorsValues.join('')}/${startDate.value}T${startTime.value}/${endDate.value}T${endTime.value}/${calcMode.value}/${count.value}/${milliseconds}`;
 }
 
-
-function generateQueryUrl_2() {
-    // change interval value to milliseconds
-    const milliseconds = Math.ceil((parseInt(interval.value))*1000);
-    return `${API.dataUrl}/${tagSelector2.value}/${startDate.value}T${startTime.value}/${endDate.value}T${endTime.value}/${calcMode.value}/${count.value}/${milliseconds}`;
-}
-
-
-function generateQueryUrl_3() {
-    // change interval value to milliseconds
-    const milliseconds = Math.ceil((parseInt(interval.value))*1000);
-    return `${API.dataUrl}/${tagSelector3.value}/${startDate.value}T${startTime.value}/${endDate.value}T${endTime.value}/${calcMode.value}/${count.value}/${milliseconds}`;
-}
-
-
-function generateQueryUrl_4() {
-    // change interval value to milliseconds
-    const milliseconds = Math.ceil((parseInt(interval.value))*1000);
-    return `${API.dataUrl}/${tagSelector4.value}/${startDate.value}T${startTime.value}/${endDate.value}T${endTime.value}/${calcMode.value}/${count.value}/${milliseconds}`;
-}
 
 
 // trims off the seconds

@@ -1,0 +1,8 @@
+
+#inner-container {
+    background: lightblue;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto 8fr;
+    grid-gap: 1rem;
+}

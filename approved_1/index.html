@@ -12,7 +12,7 @@
 </head>
 <body onload="getTags()">
 
-    <!--<div class="container mt-3">-->
+        <!--<div class="container mt-3">-->
         <div id="inner-container" class="mt-5 ml-3 mr-1">
             <div id="" class="form-container align-items-center align-content-center mx-auto">
 
@@ -21,6 +21,24 @@
                     <div class="form-group">
                         <label for="tagSelector">选择一个标签</label>
                         <select class="tagSelectors form-control" id="tagSelector">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tagSelector2">选择一个标签</label>
+                        <select class="tagSelectors form-control" id="tagSelector2">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tagSelector3">选择一个标签</label>
+                        <select class="tagSelectors form-control" id="tagSelector3">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tagSelector4">选择一个标签</label>
+                        <select class="tagSelectors form-control" id="tagSelector4">
                         </select>
                     </div>
 
@@ -76,53 +94,7 @@
 
             </div>
 
-            <div class="form-container align-items-center align-content-center mx-auto">
 
-                <form id="form2" class="p-2">
-
-                    <div class="form-group">
-                        <label for="tagSelector2">选择一个标签</label>
-                        <select class="tagSelectors form-control" id="tagSelector2">
-                        </select>
-                    </div>
-
-                    <input type="submit" value="PLOT CHART" id="plotButton2" class="btn btn-block mt-2 my-2">
-
-                </form>
-
-            </div>
-
-            <div class="form-container align-items-center align-content-center mx-auto">
-
-                <form id="form3" class="p-2">
-
-                    <div class="form-group">
-                        <label for="tagSelector3">选择一个标签</label>
-                        <select class="tagSelectors form-control" id="tagSelector3">
-                        </select>
-                    </div>
-
-                    <input type="submit" value="PLOT CHART" id="plotButton3" class="btn btn-block mt-2 my-2">
-
-                </form>
-
-            </div>
-
-            <div class="form-container align-items-center align-content-center mx-auto">
-
-                <form id="form4" class="p-2">
-
-                    <div class="form-group">
-                        <label for="tagSelector4">选择一个标签</label>
-                        <select class="tagSelectors form-control" id="tagSelector4">
-                        </select>
-                    </div>
-
-                    <input type="submit" value="PLOT CHART" id="plotButton4" class="btn btn-block mt-2 my-2">
-
-                </form>
-
-            </div>
 
 
 
@@ -132,24 +104,12 @@
 
         </div>
 
-        <div id="table-container" class="p-2 m-2">
-            <table id="table" class="table table-striped">
-                <caption id="tableCaption" style="caption-side:top" class="text-center text-capitalize"></caption>
-                <thead>
-                    <tr>
-                        <th>TimeStamp</th> <th>Value</th> <th>Quality</th>
-                    </tr>
-                </thead>
 
-            </table>
-
-        </div>
-
-    <!--</div>-->
+        <!--</div>-->
 
 
 
 
-    <script src="scripts/plot_2.js" defer></script>
+    <script src="scripts/plot.js" defer></script>
 </body>
 </html>
