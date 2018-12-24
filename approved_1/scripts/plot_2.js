@@ -47,82 +47,34 @@ let valuesArray4 = [];
 let tagSelectorsValues = [];
 
 
-// // chart parameters
-// let data = {
-//     labels: timeArray,
-//     datasets: [
-//         {
-//             label: tagSelector.value,
-//             fillColor: "#560620",
-//             strokeColor: "rgba(220,220,220,0.8)",
-//             highlightFill: "#560620",
-//             highlightStroke: "rgba(220,220,220,1)",
-//             data: valuesArray
-//         },
-//         {
-//             label: tagSelector2.value,
-//             fillColor: "#008000",
-//             strokeColor: "rgba(220,220,220,0.8)",
-//             highlightFill: "#008000",
-//             highlightStroke: "rgba(220,220,220,1)",
-//             data: valuesArray2
-//         },
-//         {
-//             label: tagSelector3.value,
-//             fillColor: "#000",
-//             strokeColor: "rgba(220,220,220,0.8)",
-//             highlightFill: "#000",
-//             highlightStroke: "rgba(220,220,220,1)",
-//             data: valuesArray3
-//         },
-//         {
-//             label: tagSelector4.value,
-//             fillColor: "#0000FF",
-//             strokeColor: "rgba(220,220,220,0.8)",
-//             highlightFill: "#0000FF",
-//             highlightStroke: "rgba(220,220,220,1)",
-//             data: valuesArray4
-//         }
-//     ]
-// };
-
-
 let data = {
     labels: timeArray,
     datasets: [
         {
             label: tagSelector.value,
             fillColor: "#560620",
-            strokeColor: "#560620",
             highlightFill: "#560620",
-            highlightStroke: "#560620",
             backgroundColor: "#560620",
             data: valuesArray
         },
         {
             label: tagSelector2.value,
             fillColor: "#008000",
-            strokeColor: "#008000",
             highlightFill: "#008000",
-            highlightStroke: "#008000",
             backgroundColor: "#008000",
             data: valuesArray2
         },
         {
             label: tagSelector3.value,
             fillColor: "#000",
-            strokeColor: "#000",
             highlightFill: "#000",
-            highlightStroke: "#000",
             backgroundColor: "#000",
             data: valuesArray3
         },
         {
             label: tagSelector4.value,
             fillColor: "#0000FF",
-            strokeColor: "#0000FF",
             highlightFill: "#0000FF",
-            highlightStroke: "#0000FF",
             backgroundColor: "#0000FF",
             data: valuesArray4
         }
