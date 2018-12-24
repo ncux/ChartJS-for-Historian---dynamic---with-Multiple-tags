@@ -16,6 +16,7 @@ const startDate = document.querySelector('#startDate');
 const endDate = document.querySelector('#endDate');
 const startTime = document.querySelector('#startTime');
 const endTime = document.querySelector('#endTime');
+const calcMode = document.querySelector('#calcMode');
 const count = document.querySelector('#count');
 const interval = document.querySelector('#interval');
 const plotType = document.querySelector('#plotType');
@@ -163,7 +164,7 @@ async function getValuesThenPlotChartAndTabulateData() {
 function generateQueryUrl() {
     // change interval value to milliseconds
     const milliseconds = Math.ceil((parseInt(interval.value))*1000);
-    return `${API.dataUrl}/${tagSelector.value}/${startDate.value}T${startTime.value}/${endDate.value}T${endTime.value}/1/${count.value}/${milliseconds}`;
+    return `${API.dataUrl}/${tagSelector.value}/${startDate.value}T${startTime.value}/${endDate.value}T${endTime.value}/${calcMode.value}/${count.value}/${milliseconds}`;
 }
 
 
