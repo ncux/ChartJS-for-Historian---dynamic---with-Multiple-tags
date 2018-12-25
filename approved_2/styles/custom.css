@@ -1,0 +1,30 @@
+
+#inner-container {
+    background: lightblue;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 10fr;
+    grid-gap: 1rem;
+}
+
+
+#tableContainer {
+    display: flex !important;
+    background: lightgrey;
+    width: 100% !important;
+    /*align-content: center;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /*justify-items: center;*/
+
+}
+
+
+.table-custom {
+    width: 25% !important;
+    /*display: inline-block !important;*/
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}

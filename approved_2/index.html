@@ -86,7 +86,7 @@
                         </select>
                     </div>
 
-                    <input type="submit" value="PLOT CHART" id="plotButton" class="btn btn-block mt-2 my-2">
+                    <input type="submit" value="PLOT CHART" id="plotButton" class="btn btn-block border-info mt-2 my-2">
 
                     <span id="warning" class="alert alert-danger" style="display: none">Please fill in all the fields!</span>
 
@@ -108,11 +108,55 @@
         </div>
 
 
+        <div id="tableContainer" class="row" style="display: none" >
+
+            <table id="table" class="col-3 table table-striped table-bordered" >
+                <caption id="tableCaption" style="caption-side:top" class="text-center text-capitalize"></caption>
+                <thead>
+                <tr>
+                    <th>TimeStamp</th> <th>Value</th>
+                </tr>
+                </thead>
+
+            </table>
+
+            <table id="table2" class="col-3 table table-striped table-bordered" >
+                <caption id="tableCaption2" style="caption-side:top" class="text-center text-capitalize"></caption>
+                <thead>
+                <tr>
+                    <th>Value</th>
+                </tr>
+                </thead>
+
+            </table>
+
+            <table id="table3" class="col-3 table table-striped table-bordered" >
+                <caption id="tableCaption3" style="caption-side:top" class="text-center text-capitalize"></caption>
+                <thead>
+                <tr>
+                    <th>Value</th>
+                </tr>
+                </thead>
+
+            </table>
+
+            <table id="table4" class="col-3 table table-striped table-bordered" >
+                <caption id="tableCaption4" style="caption-side:top" class="text-center text-capitalize"></caption>
+                <thead>
+                <tr>
+                    <th>Value</th>
+                </tr>
+                </thead>
+
+            </table>
+
+        </div>
+
         <!--</div>-->
 
 
 
 
-    <script src="scripts/plot_3%20-%20with%20error%20message.js" defer></script>
+    <script src="scripts/plot.js" defer></script>
 </body>
 </html>

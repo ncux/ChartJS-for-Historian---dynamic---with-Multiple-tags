@@ -24,6 +24,19 @@ const interval = document.querySelector('#interval');
 const plotType = document.querySelector('#plotType');
 const plotButton = document.querySelector('#plotButton');
 const warning = document.querySelector('#warning');
+const errorMessage = document.querySelector('#errorMessage');
+
+// for the tables
+const tableContainer = document.querySelector('#tableContainer');
+const table = document.querySelector('#table');
+const table2 = document.querySelector('#table2');
+const table3 = document.querySelector('#table3');
+const table4 = document.querySelector('#table4');
+const tableCaption = document.querySelector('#tableCaption');
+const tableCaption2 = document.querySelector('#tableCaption2');
+const tableCaption3 = document.querySelector('#tableCaption3');
+const tableCaption4 = document.querySelector('#tableCaption4');
+
 
 let tagSelectorsArray = document.querySelectorAll('.tagSelectors');
 
@@ -34,16 +47,19 @@ const ctx = document.querySelector('#chart').getContext('2d');
 // holds the API tags
 let tagsArray = [];
 
-
 // these arrays hold the charts values to be plotted
 let valuesArray = [];
 let timeArray = [];
 
 let valuesArray2 = [];
+let timeArray2 = [];   // for tabulation
 
 let valuesArray3 = [];
+let timeArray3 = [];
 
 let valuesArray4 = [];
+let timeArray4 = [];
+
 
 // array of tagSelector values
 let tagSelectorsValues = [];
@@ -142,12 +158,12 @@ function checkIfFormIsFullyFilled(e) {
     if (emptyFields) {
         warning.style.display = 'block';
     } else {
-        getValuesThenPlotCharts();
+        getValuesThenPlotChartsAndTabulateData();
     }
 }
 
 
-async function getValuesThenPlotCharts() {
+async function getValuesThenPlotChartsAndTabulateData() {
 
     let queryUrl = generateQueryUrl();
     console.log(queryUrl);
@@ -157,6 +173,12 @@ async function getValuesThenPlotCharts() {
 
     let historianData = await response.json();
     let timeStampsAndValues = historianData['Data'][0].Samples;
+
+    // display error message in case of Historian Error code 7: "Service call to central buffer server fail."
+    if (historianData['Data'] === undefined) {
+        errorMessage.style.display = 'block';
+    }
+
     let timeStampsAndValues2 = historianData['Data'][1].Samples || [];
     let timeStampsAndValues3 = historianData['Data'][2].Samples || [];
     let timeStampsAndValues4 = historianData['Data'][3].Samples || [];
@@ -166,37 +188,69 @@ async function getValuesThenPlotCharts() {
     console.log(timeStampsAndValues3);
     console.log(timeStampsAndValues4);   // checking integrity thus far; disable if OK
 
-    // fill the chart arrays & plot the chart
+    // fill the chart arrays
     timeStampsAndValues.forEach(value => {
         timeArray.push(simplifyTime(value.TimeStamp));
         valuesArray.push((parseInt(value.Value)).toFixed(0));   // removing decimal fraction
-        // plotChart();  // must now happen after data for the other charts has been collected
+    });
+
+    // tabulate the data
+    tableCaption.textContent = `Tag ${tagSelector.value}`;
+    timeStampsAndValues.forEach(dataItem => {
+        let row = document.createElement('tr');
+        row.innerHTML = `<td>${simplifyTime(dataItem.TimeStamp)}</td> <td>${(parseInt(dataItem.Value)).toFixed(0)}</td>`;
+        table.append(row);
     });
 
 
     if (timeStampsAndValues2.length !== 0) {
-        // fill the chart arrays & plot the chart
+        // fill the chart arrays
         timeStampsAndValues2.forEach(value => {
-            valuesArray2.push((parseInt(value.Value)).toFixed(0));   // removing decimal fraction
+            timeArray2.push(simplifyTime(value.TimeStamp));   // for the table
+            valuesArray2.push((parseInt(value.Value)).toFixed(0));
+        });
+
+        // tabulate the data
+        tableCaption2.textContent = `Tag ${tagSelector2.value}`;
+        timeStampsAndValues2.forEach(dataItem => {
+            let row = document.createElement('tr');
+            row.innerHTML = `<td>${(parseInt(dataItem.Value)).toFixed(0)}</td> `;
+            table2.append(row);
         });
     }
 
     if (timeStampsAndValues3.length !== 0) {
-        // fill the chart arrays & plot the chart
         timeStampsAndValues3.forEach(value => {
-            valuesArray3.push((parseInt(value.Value)).toFixed(0));   // removing decimal fraction
+            timeArray3.push(simplifyTime(value.TimeStamp));
+            valuesArray3.push((parseInt(value.Value)).toFixed(0));
+        });
+
+        // tabulate the data
+        tableCaption3.textContent = `Tag ${tagSelector3.value}`;
+        timeStampsAndValues3.forEach(dataItem => {
+            let row = document.createElement('tr');
+            row.innerHTML = `<td>${(parseInt(dataItem.Value)).toFixed(0)}</td> `;
+            table3.append(row);
         });
     }
 
     if (timeStampsAndValues4.length !== 0) {
-        // fill the chart arrays & plot the chart
         timeStampsAndValues4.forEach(value => {
-            valuesArray4.push((parseInt(value.Value)).toFixed(0));   // removing decimal fraction
+            timeArray4.push(simplifyTime(value.TimeStamp));
+            valuesArray4.push((parseInt(value.Value)).toFixed(0));
+        });
+
+        // tabulate the data
+        tableCaption4.textContent = `Tag ${tagSelector4.value}`;
+        timeStampsAndValues4.forEach(dataItem => {
+            let row = document.createElement('tr');
+            row.innerHTML = `<td>${(parseInt(dataItem.Value)).toFixed(0)}</td> `;
+            table4.append(row);
         });
     }
 
     plotChart();
-
+    tableContainer.style.display = 'block';
 }
 
 
@@ -224,6 +278,7 @@ function plotChart() {
         options: options
     });
 }
+
 
 
 
