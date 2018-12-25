@@ -250,7 +250,7 @@ async function getValuesThenPlotChartsAndTabulateData() {
     }
 
     plotChart();
-    tableContainer.style.display = 'block';
+    // tableContainer.style.display = 'block';
 }
 
 

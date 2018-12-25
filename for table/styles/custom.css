@@ -9,9 +9,22 @@
 
 
 #tableContainer {
-    background: gray;
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    grid-gap: 1rem;
+    display: flex !important;
+    background: lightgrey;
+    width: 100% !important;
+    /*align-content: center;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /*justify-items: center;*/
+
+}
+
+
+.table-custom {
+    width: 25% !important;
+    /*display: inline-block !important;*/
+    align-content: center;
+    align-items: center;
+    /*justify-content: center;*/
+    /*justify-items: center;*/
 }
