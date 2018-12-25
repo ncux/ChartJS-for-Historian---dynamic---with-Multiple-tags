@@ -5,6 +5,8 @@ let API = {
     dataUrl: "https://dev.sealu.net:4433/api/v1/forward?url=/historian-rest-api/v1/datapoints/calculated"
 };
 
+// reference = https://codepen.io/saske505/pen/gamPed?editors=0010
+
 
 // user inputs
 const form = document.querySelector('#form');
@@ -52,30 +54,30 @@ let data = {
     datasets: [
         {
             label: tagSelector.value,
-            fillColor: "#560620",
-            highlightFill: "#560620",
-            backgroundColor: "#560620",
+            fillColor: "#FF0000",
+            highlightFill: "#FF0000",
+            backgroundColor: "#FF0000",
             data: valuesArray
         },
         {
             label: tagSelector2.value,
-            fillColor: "#008000",
-            highlightFill: "#008000",
-            backgroundColor: "#008000",
+            fillColor: "#008080",
+            highlightFill: "#008080",
+            backgroundColor: "#008080",
             data: valuesArray2
         },
         {
             label: tagSelector3.value,
-            fillColor: "#000",
-            highlightFill: "#000",
-            backgroundColor: "#000",
+            fillColor: "#FFFF00",
+            highlightFill: "#FFFF00",
+            backgroundColor: "#FFFF00",
             data: valuesArray3
         },
         {
             label: tagSelector4.value,
-            fillColor: "#0000FF",
-            highlightFill: "#0000FF",
-            backgroundColor: "#0000FF",
+            fillColor: "#800080",
+            highlightFill: "#800080",
+            backgroundColor: "#800080",
             data: valuesArray4
         }
     ]

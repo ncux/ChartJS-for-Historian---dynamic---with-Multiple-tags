@@ -5,6 +5,8 @@ let API = {
     dataUrl: "https://dev.sealu.net:4433/api/v1/forward?url=/historian-rest-api/v1/datapoints/calculated"
 };
 
+// reference = https://codepen.io/saske505/pen/gamPed?editors=0010
+
 
 // user inputs
 const form = document.querySelector('#form');
@@ -22,6 +24,8 @@ const interval = document.querySelector('#interval');
 const plotType = document.querySelector('#plotType');
 const plotButton = document.querySelector('#plotButton');
 const warning = document.querySelector('#warning');
+const errorMessage = document.querySelector('#errorMessage');
+
 
 let tagSelectorsArray = document.querySelectorAll('.tagSelectors');
 
@@ -47,79 +51,35 @@ let valuesArray4 = [];
 let tagSelectorsValues = [];
 
 
-// // chart parameters
-// let data = {
-//     labels: timeArray,
-//     datasets: [
-//         {
-//             label: tagSelector.value,
-//             fillColor: "#560620",
-//             strokeColor: "rgba(220,220,220,0.8)",
-//             highlightFill: "#560620",
-//             highlightStroke: "rgba(220,220,220,1)",
-//             data: valuesArray
-//         },
-//         {
-//             label: tagSelector2.value,
-//             fillColor: "#008000",
-//             strokeColor: "rgba(220,220,220,0.8)",
-//             highlightFill: "#008000",
-//             highlightStroke: "rgba(220,220,220,1)",
-//             data: valuesArray2
-//         },
-//         {
-//             label: tagSelector3.value,
-//             fillColor: "#000",
-//             strokeColor: "rgba(220,220,220,0.8)",
-//             highlightFill: "#000",
-//             highlightStroke: "rgba(220,220,220,1)",
-//             data: valuesArray3
-//         },
-//         {
-//             label: tagSelector4.value,
-//             fillColor: "#0000FF",
-//             strokeColor: "rgba(220,220,220,0.8)",
-//             highlightFill: "#0000FF",
-//             highlightStroke: "rgba(220,220,220,1)",
-//             data: valuesArray4
-//         }
-//     ]
-// };
-
-
 let data = {
     labels: timeArray,
     datasets: [
         {
             label: tagSelector.value,
-            fillColor: "#560620",
-            strokeColor: "#560620",
-            highlightFill: "#560620",
-            highlightStroke: "#560620",
+            fillColor: "#FF0000",
+            highlightFill: "#FF0000",
+            backgroundColor: "#FF0000",
             data: valuesArray
         },
         {
             label: tagSelector2.value,
-            fillColor: "#008000",
-            strokeColor: "#008000",
-            highlightFill: "#008000",
-            highlightStroke: "#008000",
+            fillColor: "#008080",
+            highlightFill: "#008080",
+            backgroundColor: "#008080",
             data: valuesArray2
         },
         {
             label: tagSelector3.value,
-            fillColor: "#000",
-            strokeColor: "#000",
-            highlightFill: "#000",
-            highlightStroke: "#000",
+            fillColor: "#FFFF00",
+            highlightFill: "#FFFF00",
+            backgroundColor: "#FFFF00",
             data: valuesArray3
         },
         {
             label: tagSelector4.value,
-            fillColor: "#0000FF",
-            strokeColor: "#0000FF",
-            highlightFill: "#0000FF",
-            highlightStroke: "#0000FF",
+            fillColor: "#800080",
+            highlightFill: "#800080",
+            backgroundColor: "#800080",
             data: valuesArray4
         }
     ]
@@ -199,6 +159,12 @@ async function getValuesThenPlotCharts() {
 
     let historianData = await response.json();
     let timeStampsAndValues = historianData['Data'][0].Samples;
+
+    // display error message in case of Historian Error code 7: "Service call to central buffer server fail."
+    if (historianData['Data'] === undefined) {
+        errorMessage.style.display = 'block';
+    }
+
     let timeStampsAndValues2 = historianData['Data'][1].Samples || [];
     let timeStampsAndValues3 = historianData['Data'][2].Samples || [];
     let timeStampsAndValues4 = historianData['Data'][3].Samples || [];
@@ -206,7 +172,7 @@ async function getValuesThenPlotCharts() {
     console.log(timeStampsAndValues);
     console.log(timeStampsAndValues2);
     console.log(timeStampsAndValues3);
-    console.log(timeStampsAndValues4);   // checking integrity thus far; may disable if OK
+    console.log(timeStampsAndValues4);   // checking integrity thus far; disable if OK
 
     // fill the chart arrays & plot the chart
     timeStampsAndValues.forEach(value => {
