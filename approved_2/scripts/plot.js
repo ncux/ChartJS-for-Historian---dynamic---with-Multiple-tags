@@ -38,31 +38,31 @@ const tableCaption3 = document.querySelector('#tableCaption3');
 const tableCaption4 = document.querySelector('#tableCaption4');
 
 
-let tagSelectorsArray = document.querySelectorAll('.tagSelectors');
+const tagSelectorsArray = document.querySelectorAll('.tagSelectors');
 
 
 // grabs the canvas
 const ctx = document.querySelector('#chart').getContext('2d');
 
 // holds the API tags
-let tagsArray = [];
+const tagsArray = [];
 
 // these arrays hold the charts values to be plotted
-let valuesArray = [];
-let timeArray = [];
+const valuesArray = [];
+const timeArray = [];
 
-let valuesArray2 = [];
-let timeArray2 = [];   // for tabulation
+const valuesArray2 = [];
+const timeArray2 = [];   // for tabulation
 
-let valuesArray3 = [];
-let timeArray3 = [];
+const valuesArray3 = [];
+const timeArray3 = [];
 
-let valuesArray4 = [];
-let timeArray4 = [];
+const valuesArray4 = [];
+const timeArray4 = [];
 
 
 // array of tagSelector values
-let tagSelectorsValues = [];
+const tagSelectorsValues = [];
 
 
 let data = {
