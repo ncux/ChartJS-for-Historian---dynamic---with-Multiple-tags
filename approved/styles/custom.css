@@ -10,6 +10,7 @@
 
 #tableContainer {
     display: flex !important;
+    flex-wrap: wrap;
     background: lightgrey;
     width: 100% !important;
     /*align-content: center;*/
