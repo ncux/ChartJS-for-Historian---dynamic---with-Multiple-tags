@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/custom.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+    <title>eChart - Historian REST APIs</title>
+</head>
+<body onload="getTags()">
+
+        <!--<div class="container mt-3">-->
+        <div id="inner-container" class="mt-5 ml-3 mr-1">
+            <div id="" class="form-container align-items-center align-content-center mx-auto">
+
+                <form id="form" class="p-2">
+
+                    <div class="form-group">
+                        <label for="tagSelector">选择一个标签</label>
+                        <select class="tagSelectors form-control" id="tagSelector">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tagSelector2">选择一个标签</label>
+                        <select class="tagSelectors form-control" id="tagSelector2">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tagSelector3">选择一个标签</label>
+                        <select class="tagSelectors form-control" id="tagSelector3">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tagSelector4">选择一个标签</label>
+                        <select class="tagSelectors form-control" id="tagSelector4">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startDate">开始日期</label>
+                        <input id="startDate" type="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endDate">结束日期</label>
+                        <input id="endDate" type="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startTime">开始时间</label>
+                        <input id="startTime" type="time">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endTime">结束时间</label>
+                        <input id="endTime" type="time">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="calcMode">计算模式</label>
+                        <input id="calcMode" type="number" value="1" min="1" max="6">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="count">计数</label>
+                        <input id="count" type="number" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="interval">间隔 (秒)</label>
+                        <input id="interval" type="number" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="plotType">图表类型</label>
+                        <select class="form-control" id="plotType">
+                            <option>选择</option>
+                            <option value="bar">Bar</option>
+                            <option value="line">Line</option>
+                        </select>
+                    </div>
+
+                    <input type="submit" value="PLOT CHART" id="plotButton" class="btn btn-block border-info mt-2 my-2">
+
+                    <span id="warning" class="alert alert-danger" style="display: none">Please fill in all the fields!</span>
+
+                </form>
+
+            </div>
+
+            <div class="align-items-center mx-auto">
+                <canvas id="chart" width="700" height="600"></canvas>
+            </div>
+
+            <div id="errorMessage" style="display: none">
+                <p class="lead p-2 text-center alert alert-warning">
+                    Error code 7: Service call to central buffer server failed!
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div id="tableContainer" class="row" style="display: none" >
+
+            <table id="table" class="col-3 table table-striped table-bordered" >
+                <caption id="tableCaption" style="caption-side:top" class="text-center text-capitalize"></caption>
+                <thead>
+                <tr>
+                    <th>TimeStamp</th> <th>Value</th>
+                </tr>
+                </thead>
+
+            </table>
+
+            <table id="table2" class="col-3 table table-striped table-bordered" >
+                <caption id="tableCaption2" style="caption-side:top" class="text-center text-capitalize"></caption>
+                <thead>
+                <tr>
+                    <th>Value</th>
+                </tr>
+                </thead>
+
+            </table>
+
+            <table id="table3" class="col-3 table table-striped table-bordered" >
+                <caption id="tableCaption3" style="caption-side:top" class="text-center text-capitalize"></caption>
+                <thead>
+                <tr>
+                    <th>Value</th>
+                </tr>
+                </thead>
+
+            </table>
+
+            <table id="table4" class="col-3 table table-striped table-bordered" >
+                <caption id="tableCaption4" style="caption-side:top" class="text-center text-capitalize"></caption>
+                <thead>
+                <tr>
+                    <th>Value</th>
+                </tr>
+                </thead>
+
+            </table>
+
+        </div>
+
+        <!--</div>-->
+
+
+
+
+    <script src="scripts/plot.js" defer></script>
+</body>
+</html>
