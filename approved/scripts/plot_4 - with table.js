@@ -172,13 +172,13 @@ async function getValuesThenPlotChartsAndTabulateData() {
     let response = await fetch(queryUrl, options);
 
     let historianData = await response.json();
-    let timeStampsAndValues = historianData['Data'][0].Samples;
 
     // display error message in case of Historian Error code 7: "Service call to central buffer server fail."
     if (historianData['Data'] === undefined) {
         errorMessage.style.display = 'block';
     }
 
+    let timeStampsAndValues = historianData['Data'][0].Samples;
     let timeStampsAndValues2 = historianData['Data'][1].Samples || [];
     let timeStampsAndValues3 = historianData['Data'][2].Samples || [];
     let timeStampsAndValues4 = historianData['Data'][3].Samples || [];

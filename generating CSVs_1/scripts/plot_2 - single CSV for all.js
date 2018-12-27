@@ -1,11 +1,9 @@
 
-let API = {
+const API = {
     access_token: "",
     tagsUrl: 'https://dev.sealu.net:4433/api/v1/forward?url=/historian-rest-api/v1/tagslist',
     dataUrl: "https://dev.sealu.net:4433/api/v1/forward?url=/historian-rest-api/v1/datapoints/calculated"
 };
-
-// reference = https://codepen.io/saske505/pen/gamPed?editors=0010
 
 
 // user inputs
@@ -101,7 +99,7 @@ let data = {
 
 
 // chart options
-let options = {
+const options = {
     scales: {
         yAxes: [{
             ticks: {
@@ -135,7 +133,6 @@ async function getTags() {
 function populateTagsInput() {
 
     tagsArray.forEach(tag => {
-
         tagSelectorsArray.forEach(selector => {
             let tagOption = document.createElement('option');
             tagOption.textContent = tag;
@@ -166,7 +163,7 @@ function checkIfFormIsFullyFilled(e) {
 async function getValuesThenPlotChartsAndTabulateData() {
 
     let queryUrl = generateQueryUrl();
-    console.log(queryUrl);
+    // console.log(queryUrl);
 
     const options = { headers: { 'Authorization': `Bearer ${ API.access_token }` } };
     let response = await fetch(queryUrl, options);
@@ -178,15 +175,23 @@ async function getValuesThenPlotChartsAndTabulateData() {
         errorMessage.style.display = 'block';
     }
 
+    console.log(historianData['Data']);
+
     let timeStampsAndValues = historianData['Data'][0].Samples;
+
+
+
+
+
     let timeStampsAndValues2 = historianData['Data'][1].Samples || [];
     let timeStampsAndValues3 = historianData['Data'][2].Samples || [];
     let timeStampsAndValues4 = historianData['Data'][3].Samples || [];
 
-    console.log(timeStampsAndValues);
-    console.log(timeStampsAndValues2);
-    console.log(timeStampsAndValues3);
-    console.log(timeStampsAndValues4);   // checking integrity thus far; disable if OK
+    // console.log(makeCSV(timeStampsAndValues));      // checking integrity thus far; disable if OK
+    downloadTagCSV(tagSelector.value, makeCSV(timeStampsAndValues));   // forces download of the tags in CSV format
+    downloadTagCSV(tagSelector2.value, makeCSV(timeStampsAndValues2));
+    downloadTagCSV(tagSelector3.value, makeCSV(timeStampsAndValues3));
+    downloadTagCSV(tagSelector4.value, makeCSV(timeStampsAndValues4));
 
     // fill the chart arrays
     timeStampsAndValues.forEach(value => {
@@ -259,7 +264,6 @@ function generateQueryUrl() {
     // change interval value to milliseconds
     const milliseconds = Math.ceil((parseInt(interval.value))*1000);
     tagSelectorsValues.push(`${tagSelector.value}%3B`, `${tagSelector2.value}%3B`, `${tagSelector3.value}%3B`, `${tagSelector4.value}`);  // concatenates tagSelector values and separates them with semicolon
-    console.log(`${tagSelectorsValues.join('')}`);
     return `${API.dataUrl}/${tagSelectorsValues.join('')}/${startDate.value}T${startTime.value}/${endDate.value}T${endTime.value}/${calcMode.value}/${count.value}/${milliseconds}`;
 }
 
@@ -271,6 +275,37 @@ function simplifyTime(timestamp) {
 }
 
 
+// returns CSV of object array (duh)
+function makeCSV(objectArray) {
+    let fields = Object.keys(objectArray[0]);
+
+    let csv = objectArray.map(row => {
+        return fields.map(fieldName => {
+            return JSON.stringify(row[fieldName], replacer)
+        }).join(',')
+    });
+
+    csv.unshift(fields.join(',')); // add header column
+    return csv.join('\r\n');
+}
+
+
+// goes hand-in-hand with makeCSV function
+function replacer(key, value) {
+    return value === null ? '' : value;
+}
+
+
+// creates the download link for the CSV file
+function downloadTagCSV(filename, csvFile) {
+    let link = document.createElement('a');
+    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURI(csvFile));  // href is set to a "data URI"
+    link.setAttribute('download', filename + '.csv');
+    link.textContent = 'Download';
+    link.click();
+}
+
+
 function plotChart() {
     const chart = new Chart(ctx, {
         type: plotType.value,
@@ -278,6 +313,9 @@ function plotChart() {
         options: options
     });
 }
+
+
+
 
 
 
