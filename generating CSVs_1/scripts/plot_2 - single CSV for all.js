@@ -62,6 +62,9 @@ const timeArray4 = [];
 // array of tagSelector values
 const tagSelectorsValues = [];
 
+// array to hold all timestampsAndValues
+const allTimeStampsAndValues = [];
+
 
 let data = {
     labels: timeArray,
@@ -175,17 +178,15 @@ async function getValuesThenPlotChartsAndTabulateData() {
         errorMessage.style.display = 'block';
     }
 
-    console.log(historianData['Data']);
+    // console.log(`All the API data: ${historianData['Data']}`);
 
     let timeStampsAndValues = historianData['Data'][0].Samples;
-
-
-
-
-
     let timeStampsAndValues2 = historianData['Data'][1].Samples || [];
     let timeStampsAndValues3 = historianData['Data'][2].Samples || [];
     let timeStampsAndValues4 = historianData['Data'][3].Samples || [];
+
+    allTimeStampsAndValues.push(timeStampsAndValues, timeStampsAndValues2, timeStampsAndValues3, timeStampsAndValues4);
+    console.log(allTimeStampsAndValues);
 
     // console.log(makeCSV(timeStampsAndValues));      // checking integrity thus far; disable if OK
     downloadTagCSV(tagSelector.value, makeCSV(timeStampsAndValues));   // forces download of the tags in CSV format

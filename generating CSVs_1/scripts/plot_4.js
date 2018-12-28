@@ -62,6 +62,10 @@ const timeArray4 = [];
 // array of tagSelector values
 const tagSelectorsValues = [];
 
+// composite table for holding values for the CSV
+let combinedTable = new Map();
+
+
 
 let data = {
     labels: timeArray,
@@ -180,11 +184,14 @@ async function getValuesThenPlotChartsAndTabulateData() {
     let timeStampsAndValues3 = historianData['Data'][2].Samples || [];
     let timeStampsAndValues4 = historianData['Data'][3].Samples || [];
 
-    console.log(makeCSV(timeStampsAndValues));      // checking integrity thus far; disable if OK
-    downloadTagCSV(tagSelector.value, makeCSV(timeStampsAndValues));   // forces download of the tags in CSV format
-    downloadTagCSV(tagSelector2.value, makeCSV(timeStampsAndValues2));
-    downloadTagCSV(tagSelector3.value, makeCSV(timeStampsAndValues3));
-    downloadTagCSV(tagSelector4.value, makeCSV(timeStampsAndValues4));
+    addToCombinedTable(timeStampsAndValues,  0);
+    addToCombinedTable(timeStampsAndValues2, 1);
+    addToCombinedTable(timeStampsAndValues3, 2);
+    addToCombinedTable(timeStampsAndValues4, 3);
+
+    console.log(combinedTable);
+
+    downloadTagCSV('allTags', makeCSV(combinedTable));
 
     // fill the chart arrays
     timeStampsAndValues.forEach(value => {
@@ -265,6 +272,16 @@ function generateQueryUrl() {
 // trims off the seconds
 function simplifyTime(timestamp) {
     return timestamp.slice(0, 16);
+}
+
+
+// adds values to combined table for the CSV file
+function addToCombinedTable(items, n) {
+    items.forEach(item => {
+        combinedTable[item.TimeStamp] = [];
+        combinedTable[item.TimeStamp][n] = item.Value;
+    });
+    return combinedTable;
 }
 
 
