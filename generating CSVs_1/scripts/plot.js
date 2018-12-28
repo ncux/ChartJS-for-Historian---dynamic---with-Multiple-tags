@@ -62,7 +62,7 @@ const timeArray4 = [];
 // array of tagSelector values
 const tagSelectorsValues = [];
 
-
+// chart data
 let data = {
     labels: timeArray,
     datasets: [
@@ -180,7 +180,7 @@ async function getValuesThenPlotChartsAndTabulateData() {
     let timeStampsAndValues3 = historianData['Data'][2].Samples || [];
     let timeStampsAndValues4 = historianData['Data'][3].Samples || [];
 
-    console.log(makeCSV(timeStampsAndValues));      // checking integrity thus far; disable if OK
+    console.log(makeCSV(timeStampsAndValues));      // checking integrity thus far
     downloadTagCSV(tagSelector.value, makeCSV(timeStampsAndValues));   // forces download of the tags in CSV format
     downloadTagCSV(tagSelector2.value, makeCSV(timeStampsAndValues2));
     downloadTagCSV(tagSelector3.value, makeCSV(timeStampsAndValues3));
@@ -259,7 +259,6 @@ function generateQueryUrl() {
     tagSelectorsValues.push(`${tagSelector.value}%3B`, `${tagSelector2.value}%3B`, `${tagSelector3.value}%3B`, `${tagSelector4.value}`);  // concatenates tagSelector values and separates them with semicolon
     return `${API.dataUrl}/${tagSelectorsValues.join('')}/${startDate.value}T${startTime.value}/${endDate.value}T${endTime.value}/${calcMode.value}/${count.value}/${milliseconds}`;
 }
-
 
 
 // trims off the seconds
