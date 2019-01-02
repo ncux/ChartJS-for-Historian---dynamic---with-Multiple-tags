@@ -183,9 +183,15 @@ function checkIfFormIsFullyFilled_3(e) {
     let emptyFields = [...formInputs].some(input => input.value === '');  // boolean
     if (emptyFields) {
         warning.style.display = 'block';
+        setTimeout(hideWarningMessage, 2000);
     } else {
         getValuesThenPlotChartAndTabulateData_3();
     }
+}
+
+
+function hideWarningMessage() {
+    warning.style.display = 'none';
 }
 
 

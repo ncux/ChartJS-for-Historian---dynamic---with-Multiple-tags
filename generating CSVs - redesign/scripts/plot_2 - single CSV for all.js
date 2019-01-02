@@ -62,7 +62,10 @@ const timeArray4 = [];
 // array of tagSelector values
 const tagSelectorsValues = [];
 
-// chart data
+// array to hold all timestampsAndValues
+const allTimeStampsAndValues = [];
+
+
 let data = {
     labels: timeArray,
     datasets: [
@@ -165,11 +168,10 @@ function hideWarningMessage() {
     warning.style.display = 'none';
 }
 
-
 async function getValuesThenPlotChartsAndTabulateData() {
 
     let queryUrl = generateQueryUrl();
-    console.log(queryUrl);
+    // console.log(queryUrl);
 
     const options = { headers: { 'Authorization': `Bearer ${ API.access_token }` } };
     let response = await fetch(queryUrl, options);
@@ -181,12 +183,17 @@ async function getValuesThenPlotChartsAndTabulateData() {
         errorMessage.style.display = 'block';
     }
 
+    // console.log(`All the API data: ${historianData['Data']}`);
+
     let timeStampsAndValues = historianData['Data'][0].Samples;
     let timeStampsAndValues2 = historianData['Data'][1].Samples || [];
     let timeStampsAndValues3 = historianData['Data'][2].Samples || [];
     let timeStampsAndValues4 = historianData['Data'][3].Samples || [];
 
-    console.log(makeCSV(timeStampsAndValues));      // checking integrity thus far
+    allTimeStampsAndValues.push(timeStampsAndValues, timeStampsAndValues2, timeStampsAndValues3, timeStampsAndValues4);
+    console.log(allTimeStampsAndValues);
+
+    // console.log(makeCSV(timeStampsAndValues));      // checking integrity thus far; disable if OK
     downloadTagCSV(tagSelector.value, makeCSV(timeStampsAndValues));   // forces download of the tags in CSV format
     downloadTagCSV(tagSelector2.value, makeCSV(timeStampsAndValues2));
     downloadTagCSV(tagSelector3.value, makeCSV(timeStampsAndValues3));
@@ -265,6 +272,7 @@ function generateQueryUrl() {
     tagSelectorsValues.push(`${tagSelector.value}%3B`, `${tagSelector2.value}%3B`, `${tagSelector3.value}%3B`, `${tagSelector4.value}`);  // concatenates tagSelector values and separates them with semicolon
     return `${API.dataUrl}/${tagSelectorsValues.join('')}/${startDate.value}T${startTime.value}/${endDate.value}T${endTime.value}/${calcMode.value}/${count.value}/${milliseconds}`;
 }
+
 
 
 // trims off the seconds
